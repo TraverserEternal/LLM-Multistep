@@ -1,0 +1,35 @@
+{
+	"compilerOptions": {
+		"target": "ES2022",
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"noEmit": true,
+		"allowJs": true,
+		"checkJs": true,
+		"jsx": "react-jsx",
+		"jsxImportSource": "preact",
+		"strict": true,
+		"noUncheckedIndexedAccess": true,
+		"lib": [
+			"es2022",
+			"dom",
+			"dom.iterable"
+		],
+		"baseUrl": "./src",
+		"paths": {
+			"components/*": [
+				"./components/*"
+			],
+			"pages/*": [
+				"./pages/*"
+			],
+			"utils/*": [
+				"./utils/*"
+			],
+		}
+	},
+	"include": [
+		"node_modules/vite/client.d.ts",
+		"**/*"
+	],
+}

@@ -1,0 +1,11 @@
+@use "global-variables" as *
+
+.home::after
+  opacity: 0
+  transition: all .25s
+  width: 100
+  height: 100
+  background-color: $secondary-color
+
+.home:hover::after
+  opacity: 1
