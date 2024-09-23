@@ -4,6 +4,7 @@ import { secondTheme } from "utils/themes";
 import { useTheme } from "utils/useTheme";
 import styles from "./Home.module.sass";
 import axios from "axios";
+import { startTransition } from "preact/compat";
 
 export const Home: FunctionComponent = () => {
   const { setTheme, theme } = useTheme();
@@ -23,12 +24,13 @@ export const Home: FunctionComponent = () => {
           { role: "user", content: "Introduce yourself." }
         ],
         temperature: 0.7,
-        max_tokens: -1
+        max_tokens: -1,
+        stream: false
       })
 
-    })
-    if (!response.ok) console.log("trouble with the request");
-    else setButtonText("OK!");
+    }).then(async r => (await r.json()).choices[0].message)//.then(json => json.choices[0].message)
+    setButtonText("OK!");
+    console.log(response);
 
   }
 
