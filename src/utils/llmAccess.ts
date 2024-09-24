@@ -27,13 +27,17 @@ type LLMResponseFormat = {
 export const createLLMResponseFormat = (
 	name: string,
 	properties: { [key: string]: { type: "string" | "number" | "boolean" } },
-	required: string[]
+	required?: string[]
 ): LLMResponseFormat => ({
 	type: "json_schema",
 	json_schema: {
 		name,
 		strict: "true",
-		schema: { properties, type: "object", required },
+		schema: {
+			properties,
+			type: "object",
+			required: required || Object.keys(properties),
+		},
 	},
 });
 
@@ -64,7 +68,7 @@ export const callLLM = async (
 	}).then(async (r) => (await r.json()).choices[0]);
 };
 
-export const callLLMStructured = async (
+export const callLLMStructured = async <T>(
 	messages: LLMMessage[],
 	format: LLMResponseFormat,
 	options?: {
@@ -73,7 +77,7 @@ export const callLLMStructured = async (
 		max_tokens?: number;
 		stream?: boolean;
 	}
-): Promise<any> => {
+): Promise<T> => {
 	return await fetch("http://127.0.0.1:1234/v1/chat/completions", {
 		headers: {
 			Accept: "application/json",
@@ -90,5 +94,7 @@ export const callLLMStructured = async (
 			stream: options?.stream || false,
 			response_format: format,
 		}),
-	}).then(async (r) => JSON.parse((await r.json()).choices[0].message.content));
+	}).then(
+		async (r) => JSON.parse((await r.json()).choices[0].message.content) as T
+	);
 };

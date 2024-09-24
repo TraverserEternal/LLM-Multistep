@@ -10,19 +10,25 @@ import { callLLM, callLLMStructured, createLLMResponseFormat } from "utils/llmAc
 const responseStructure = createLLMResponseFormat(
   "exampleResponse",
   {
-    happy: {type: "boolean"},
-    response: {type: "string"},
-    notRequired: {type: "number"},
+    expertName: { type: "string" },
+    description: {type: 'string'}
   },
-  ["happy", "response"],
 )
+
+type responseType = {
+  expertName: string;
+  description: string;
+}
 
 export const Home: FunctionComponent = () => {
   const { setTheme, theme } = useTheme();
   const [buttonText, setButtonText] = useState("Send Request");
   const sendRequest = async (): Promise<void> => {
     setButtonText('Sending...');
-    const response = await callLLMStructured([{ content: "please put true into happy and some random response into response, and dont include notRequired", role: "user" }], responseStructure)
+    const response = await callLLMStructured<responseType>([{
+      content: "Give me an expert who will help me with writing, and describe them in a way that I can provide as an LLM prompt to create that expert, e.g. 'You are an expert of...'. The Name of the expert should be descriptive and camelcased",
+      role: "user"
+    }], responseStructure)
     setButtonText("OK!");
     console.log(response);
   }
