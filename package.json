@@ -11,8 +11,7 @@
 		"@types/axios": "^0.9.36",
 		"axios": "^1.7.7",
 		"preact": "^10.22.1",
-		"preact-iso": "^2.6.3",
-		"typescript-json-schema": "^0.65.1"
+		"preact-iso": "^2.6.3"
 	},
 	"devDependencies": {
 		"@preact/preset-vite": "^2.9.0",
