@@ -17,16 +17,24 @@ type LLMResponseFormat = {
 		schema: {
 			type: "object";
 			properties: {
-				[key: string]: { type: "string" | "number" | "boolean" };
+				[key: string]: LLMResponseProperty;
 			};
 			required: string[];
 		};
 	};
 };
 
+type LLMResponseProperty =
+	| { type: "string" | "number" | "boolean" }
+	| {
+			type: "object";
+			properties: { [name: string]: LLMResponseProperty };
+			required?: string[];
+	  };
+
 export const createLLMResponseFormat = (
 	name: string,
-	properties: { [key: string]: { type: "string" | "number" | "boolean" } },
+	properties: { [key: string]: LLMResponseProperty },
 	required?: string[]
 ): LLMResponseFormat => ({
 	type: "json_schema",
