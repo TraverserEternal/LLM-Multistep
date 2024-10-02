@@ -1,7 +1,6 @@
 import { FunctionComponent, render } from "preact";
 import { LocationProvider, Route, Router } from "preact-iso";
-
-import { Header } from "components/Header/Header";
+import "preact/debug";
 import { Home } from "pages/Home/Home";
 import { useEffect } from "preact/hooks";
 import { ThemeProvider } from "utils/useTheme";
@@ -18,7 +17,6 @@ export const App: FunctionComponent = () => {
 	return (
 		<ThemeProvider>
 			<LocationProvider>
-				<Header />
 				<main>
 					<Router>
 						<Route path="/" component={Home} />

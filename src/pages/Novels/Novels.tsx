@@ -1,4 +1,4 @@
-import { FunctionComponent } from "preact";
+import { ComponentChild, FunctionComponent } from "preact";
 import { useCallback, useState } from "preact/hooks";
 import { secondTheme } from "utils/themes";
 import { useTheme } from "utils/useTheme";
@@ -22,19 +22,30 @@ type responseType = {
 
 export const Novels: FunctionComponent = () => {
 	const { setTheme, theme } = useTheme();
-	const [chapters, setChapters] = useState<string[]>([]);
+	type Chapter = {
+		description: string;
+		numberOfPages: number;
+	};
 
-	function renderChapters(): import("preact").ComponentChild {
-		return chapters.map((chapter) => <div>{chapter}</div>);
+	const [chapters, setChapters] = useState<Chapter[]>([]);
+
+	function renderChapters(): ComponentChild {
+		return chapters.map((chapter) => (
+			<div>
+				{chapter.description} {chapter.numberOfPages}
+			</div>
+		));
 	}
 
 	return (
 		<div className={styles.novels}>
 			{renderChapters()}
 			<NewChapter
-				createNewChapter={(newChapter) =>
-					setChapters([...chapters, newChapter])
-				}
+				createNewChapter={(description, numberOfPages) => {
+					console.log("new Chapter");
+
+					setChapters([...chapters, { description, numberOfPages }]);
+				}}
 			/>
 		</div>
 	);
