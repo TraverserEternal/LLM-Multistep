@@ -4,6 +4,7 @@ import { secondTheme } from "utils/themes";
 import { useTheme } from "utils/useTheme";
 import styles from "./Novels.module.sass";
 import { callLLMStructured, createLLMResponseFormat } from "utils/llmAccess";
+import { NewChapter } from "./NewChapter/NewChapter";
 
 const responseStructure = createLLMResponseFormat("exampleResponse", {
 	expertName: { type: "string" },
@@ -21,13 +22,20 @@ type responseType = {
 
 export const Novels: FunctionComponent = () => {
 	const { setTheme, theme } = useTheme();
+	const [chapters, setChapters] = useState<string[]>([]);
+
+	function renderChapters(): import("preact").ComponentChild {
+		return chapters.map((chapter) => <div>{chapter}</div>);
+	}
 
 	return (
 		<div className={styles.novels}>
-			<button onClick={useCallback(() => setTheme(secondTheme), [])}>
-				Add Chapter
-			</button>
-			<div />
+			{renderChapters()}
+			<NewChapter
+				createNewChapter={(newChapter) =>
+					setChapters([...chapters, newChapter])
+				}
+			/>
 		</div>
 	);
 };
