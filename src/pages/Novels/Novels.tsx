@@ -2,9 +2,8 @@ import { FunctionComponent } from "preact";
 import { useCallback, useState } from "preact/hooks";
 import { secondTheme } from "utils/themes";
 import { useTheme } from "utils/useTheme";
-import styles from "./Home.module.sass";
+import styles from "./Novels.module.sass";
 import { callLLMStructured, createLLMResponseFormat } from "utils/llmAccess";
-import { useLocation, useRoute } from "preact-iso";
 
 const responseStructure = createLLMResponseFormat("exampleResponse", {
 	expertName: { type: "string" },
@@ -20,19 +19,14 @@ type responseType = {
 	description: string;
 };
 
-export const Home: FunctionComponent = () => {
+export const Novels: FunctionComponent = () => {
 	const { setTheme, theme } = useTheme();
-	const { route } = useLocation();
-	const routeToNovels = async (): Promise<void> => {
-		route("/novels");
-	};
 
 	return (
-		<div className={styles.home}>
+		<div className={styles.novels}>
 			<button onClick={useCallback(() => setTheme(secondTheme), [])}>
-				Change Theme
+				Add Chapter
 			</button>
-			<button onClick={routeToNovels}>Novels</button>
 			<div />
 		</div>
 	);
