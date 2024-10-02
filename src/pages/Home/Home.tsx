@@ -3,13 +3,7 @@ import { useCallback, useState } from "preact/hooks";
 import { secondTheme } from "utils/themes";
 import { useTheme } from "utils/useTheme";
 import styles from "./Home.module.sass";
-import axios from "axios";
-import { startTransition } from "preact/compat";
-import {
-	callLLM,
-	callLLMStructured,
-	createLLMResponseFormat,
-} from "utils/llmAccess";
+import { callLLMStructured, createLLMResponseFormat } from "utils/llmAccess";
 
 const responseStructure = createLLMResponseFormat("exampleResponse", {
 	expertName: { type: "string" },
