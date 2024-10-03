@@ -14,7 +14,7 @@ export const NewChapter: FunctionComponent<NewChapterProps> = ({
 }) => {
 	const { theme, setTheme } = useTheme();
 	const [chapterDescription, setChapterDescription] = useState("");
-	const [numberOfPages, setNumberOfPages] = useState(6);
+	const [numberOfPages, setNumberOfPages] = useState(5);
 	const rerender = useRerender();
 
 	const submit = (e: any) => {
@@ -34,20 +34,21 @@ export const NewChapter: FunctionComponent<NewChapterProps> = ({
 	};
 
 	return (
-		<form onSubmit={submit}>
+		<form onSubmit={submit} className={styles.newChapter}>
 			<Input
 				label="New Chapter"
-				className={styles.newChapter}
+				wrapperClass={styles.description}
 				onInput={(e) => setChapterDescription(e.currentTarget.value)}
 				value={chapterDescription}
 			/>
 			<Input
 				label="Number of Pages"
-				className={styles.numberOfPages}
+				wrapperClass={styles.chapterLength}
 				onInput={(e) => {
 					parseNumberOfPages(e.currentTarget.value);
 				}}
 				value={numberOfPages}
+				labelAlwaysVisible
 			/>
 			<input type="submit" hidden />
 		</form>

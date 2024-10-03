@@ -5,6 +5,7 @@ import { useTheme } from "utils/useTheme";
 import styles from "./Novels.module.sass";
 import { callLLMStructured, createLLMResponseFormat } from "utils/llmAccess";
 import { NewChapter } from "./NewChapter/NewChapter";
+import { WordEstimator } from "./WordEstimator/WordEstimator";
 
 const responseStructure = createLLMResponseFormat("exampleResponse", {
 	expertName: { type: "string" },
@@ -31,22 +32,23 @@ export const Novels: FunctionComponent = () => {
 
 	function renderChapters(): ComponentChild {
 		return chapters.map((chapter) => (
-			<div>
-				{chapter.description} {chapter.numberOfPages}
+			<div className={styles.chapter}>
+				<span>{chapter.description}</span>
+				<span>{chapter.numberOfPages}</span>
 			</div>
 		));
 	}
 
 	return (
 		<div className={styles.novels}>
+			<header>Chapter Outline</header>
 			{renderChapters()}
 			<NewChapter
 				createNewChapter={(description, numberOfPages) => {
-					console.log("new Chapter");
-
 					setChapters([...chapters, { description, numberOfPages }]);
 				}}
 			/>
+			<WordEstimator chapters={chapters} />
 		</div>
 	);
 };
