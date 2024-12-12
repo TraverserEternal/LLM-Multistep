@@ -1,0 +1,53 @@
+@use "global-variables" as *
+  
+.card
+  border-bottom: 1px solid #ccc
+  padding: 1rem 0
+  margin-bottom: 1rem
+  cursor: pointer
+
+.header
+  display: flex
+  justify-content: space-between
+  align-items: center
+
+.title
+  font-size: 1.5em
+
+.sections
+  margin-top: 1rem
+  padding-left: .5rem
+  border-left: 2px solid #eee
+
+.editFields
+  flex: .8
+  display: grid
+  grid-template-columns: 1fr 1fr
+  flex-direction: column
+  gap: 0.5rem
+
+.editInput, .editTextarea
+  width: 100%
+  padding: 0.5rem
+  border: 1px solid #ccc
+  border-radius: 4px
+  font-size: 1rem
+
+.editTextarea
+  min-height: 3rem
+  grid-row-start: 1
+  grid-row-end: 3
+
+.editButton, .expandButton
+  margin-top: 0.5rem
+  padding: 0.5rem 1rem
+  background-color: $secondary-color
+  color: #FBF9E9
+  border: none
+  border-radius: 4px
+  cursor: pointer,
+  flex: .05
+  text-align: center
+
+  &:hover
+    background-color: $secondary-color

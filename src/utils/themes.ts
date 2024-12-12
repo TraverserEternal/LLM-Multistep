@@ -5,9 +5,9 @@ export type Theme = {
 };
 
 export const defaultTheme: Theme = {
-	primaryColor: "#40d252",
-	secondaryColor: "#51ae5c",
-	textColor: "white",
+	primaryColor: "#513296",
+	secondaryColor: "#676B5E",
+	textColor: "#FBF9E9",
 };
 
 export const secondTheme: Theme = {
