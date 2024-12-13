@@ -29,7 +29,7 @@ export const BookElementCard: FunctionComponent<BookElementCardProps> = ({
 	const [isEditing, setIsEditing] = useState(false);
 	const [title, setTitle] = useState(element.title);
 	const [description, setDescription] = useState(element.description);
-	const [wordCount, setWordCount] = useState(element.wordCount);
+	const [wordCount, setWordCount] = useState(element.wordCount.toString());
 
 	// Drag-and-Drop Handlers
 	const [{ isDragging }, dragRef] = useDrag({
@@ -56,7 +56,12 @@ export const BookElementCard: FunctionComponent<BookElementCardProps> = ({
 	});
 
 	const handleSave = () => {
-		const updatedElement = { ...element, title, description, wordCount };
+		const updatedElement = {
+			...element,
+			title,
+			description,
+			wordCount: parseInt(wordCount),
+		};
 		onChange(updatedElement);
 		setIsEditing(false);
 	};
@@ -100,7 +105,7 @@ export const BookElementCard: FunctionComponent<BookElementCardProps> = ({
 						/>
 						<input
 							value={wordCount}
-							onInput={(e) => setWordCount(parseInt(e.currentTarget.value))}
+							onInput={(e) => setWordCount(e.currentTarget.value)}
 							placeholder={"Word Count"}
 							className={styles.editInput}
 						/>
